@@ -1,14 +1,20 @@
 import Modal from './Modal';
 import { useRef } from 'react';
+
 function App() {
-	const modal = useRef(null);
+	//자식 컴포넌트로부터 전달받을 모달 여는 함수가 담길 참조객체 생성
+	const openFunc = useRef(null);
+
 	const handleClick = () => {
-		console.log(modal.current);
+		//console.log(openFunc.current);
+		//openFunc.current객체안의 open키값에 담겨있는 함수 호출
+		openFunc.current.open();
 	};
 	return (
 		<div className='App'>
 			<button onClick={handleClick}>open</button>
-			<Modal ref={modal} />
+			{/* Modal 컴포넌트에서forwardRef-useImperativeHandle이 객체 형태로 전달해주는 modal여는 함수를 참조 */}
+			<Modal ref={openFunc} />
 		</div>
 	);
 }

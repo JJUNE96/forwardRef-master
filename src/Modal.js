@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 
 const modalStyle = {
 	width: 400,
@@ -22,14 +22,23 @@ const btn = {
 
 //modal 컴포넌트 자체를 부모로 전달
 const Modal = forwardRef((props, ref) => {
+	//Modal 자체적으로 자신을 열고 닫는 state값 생성
+	const [Open, setOpen] = useState(false);
+
 	useImperativeHandle(ref, () => {
-		return { name: 'David' };
+		return { open: () => setOpen(true) };
 	});
 
 	return (
-		<aside style={modalStyle} ref={ref}>
-			<span style={btn}>close</span>
-		</aside>
+		<>
+			{Open && (
+				<aside style={modalStyle}>
+					<span style={btn} onClick={() => setOpen(false)}>
+						close
+					</span>
+				</aside>
+			)}
+		</>
 	);
 });
 
