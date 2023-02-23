@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, useImperativeHandle } from 'react';
 
 const modalStyle = {
 	width: 400,
@@ -21,7 +21,11 @@ const btn = {
 };
 
 //modal 컴포넌트 자체를 부모로 전달
-const Modal = forwardRef((el, ref) => {
+const Modal = forwardRef((props, ref) => {
+	useImperativeHandle(ref, () => {
+		return { name: 'David' };
+	});
+
 	return (
 		<aside style={modalStyle} ref={ref}>
 			<span style={btn}>close</span>
